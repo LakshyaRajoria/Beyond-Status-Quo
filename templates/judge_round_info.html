@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+<style>
+body {
+  background-color: rgba(33, 37, 41, 1)!important;
+}
+
+</style> 
+</head>
+
+<body>
+
+
+
+<div id="main">
+  <header id="header" >
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+          <li> </li>
+          <li> </li>
+
+
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li> <a href="/user/">{{user}}</a></li>
+              <li> <a href="/logout/">Logout</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+ <section id="hero" style='height: 100%!important;'>
+    <div class="main">
+        <h1 style="text-align:center!important"> Round Info </h1>
+
+        <br>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"> Round Number </th>
+              <th scope="col">Team Name 1</th>
+              <th scope="col">Team Name 2</th>
+              <th scope="col">Decision</th>
+            </tr>
+          </thead>
+      {% for i in rounds %}
+        {% for j in pairs %}
+          {% if j.0 == i %}
+          <tbody>
+                <tr>
+                  <td>{{i}}</td>
+                  <td>{{j.1}}</td>
+                  <td>{{j.2}}</td>
+                  {% if j.3 %}
+                    <td> 
+                    {% if j.4 %}
+                    <a href="decision-submission/{{j.4}}/">Make Decision</a>
+                    {% else %}
+                    <a href="decision-submission/{{j.0}}/">Make Decision</a>
+                    {% endif %}
+                    </td>
+                  {% elif not j.3 %}
+                    <td>Decision Already Made</td>
+                  {% endif %}
+                </tr>
+          </tbody>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+        </table>
+
+    </div>
+  </section>
+
+
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+   <!-- Vendor JS Files -->
+   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+   <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+   
+   <!-- Template Main JS File -->
+   <script src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+
+</html>

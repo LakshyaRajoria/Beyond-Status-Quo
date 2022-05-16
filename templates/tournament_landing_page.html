@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+<style>
+
+body {
+  background-color: rgba(33, 37, 41, 1)!important;
+}
+
+
+h3 {
+  text-align: center;
+}
+
+p {
+  color: black!important;
+  font-size: 15px;
+}
+
+.shade {
+  color: rgba(33, 37, 41, 1)!important;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 7px 10px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+
+<div id="main">
+  <header id="header" >
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+          <span style="color:red;font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+          <li class="shade"> </li>
+          <li class="shade"> </li>
+
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/tournament-landing/{{tournament}}/">Tournament Landing</a>
+            <a href="/tournament-entries/{{tournament}}/">Tournament Entries</a>
+            <div class="collapsible collapsible-accordion">
+                <a class="collapsible-header">Tournament Pairings</a>
+                <div class="collapsible-body">
+                  <ul>
+                      {% for x in l%}
+                          <a href="/tournament-pairings/{{tournament}}/{{x}}/">Round {{x}}</a>
+                      {% endfor %}
+                  </ul>
+                </div>
+            </div>
+            <div class="collapsible collapsible-accordion">
+                  <a class="collapsible-header">Tournament Results</a>
+                  <div class="collapsible-body">
+                    <ul>
+                        {% for x in l%}
+                            <a href="/tournament-results/{{tournament}}/{{x}}/">Round {{x}}</a>
+                        {% endfor %}
+                    </ul>
+                  </div>
+              </div>
+              <a href="/tournament-bracket/{{tournament}}/">Break Round Bracket</a>
+              {% if show_speaker_points %} 
+                <a href="/speaker-point-ranking/{{tournament}}/">Best Speakers</a>
+              {% endif %}
+              <a href="/final-result/{{tournament}}/">Preliminary results</a>
+
+          </div>
+
+
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              {% if request.user.is_authenticated %}
+              <li><a href="/user/">{{user}}</a></li>
+              <li> <a href="/logout/">Logout</a></li>
+              {% else %}
+              <li><a href="/">Login</a></li>
+              {% endif %}
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+  <section id="hero" style='height: 100%!important;'>
+    <div class="main">
+      <h1> {{tournament}} </h1>
+      <br>
+      <p id="info"> 
+        {%for x in description%} 
+        {{x}}<br>
+        {% endfor %}
+      </p>
+
+      {% if host %}
+        <form id="edit" style="display:none;" class="modal-content" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        <textarea cols="110" placeholder="Tournament Description" style="font-size: medium;" class="form-control" name="tournament_description" rows="6">{%for x in description%}{{x}}{% endfor %}</textarea required>
+          <button type="submit" class="signupbtn" value="sub" name="action">Confirm Edit</button>
+        </form>
+        <br><br>
+      {% endif %}
+
+      {% if files %}
+        {% for x in files %}
+          <p id="info"><a href="{{x.1}}">{{x.0}}</a></p>
+        {% endfor %}
+      {% endif %}
+      
+      {% if host %}
+      <button id="info_button" onclick="myFunction()">Edit Description</button>
+      <button id="edit_button" style="display:none;" onclick="myFunction()">Cancel</button>
+      <script>
+        function myFunction() {
+          if( document.getElementById("info").style.display=='none' ){
+            document.getElementById("info").style.display = '';
+            document.getElementById("edit").style.display = 'none';
+            document.getElementById("info_button").style.display = '';
+            document.getElementById("edit_button").style.display = 'none';
+          }else{
+            document.getElementById("edit").style.display = '';
+            document.getElementById("info").style.display = 'none';
+            document.getElementById("edit_button").style.display = '';
+            document.getElementById("info_button").style.display = 'none';
+            }
+          }
+        </script>
+      {% endif %}
+    </div>
+  </section>
+
+
+  </div>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+      document.body.style.backgroundColor = "white";
+    }
+    </script>
+
+
+</body>
+
+</html>

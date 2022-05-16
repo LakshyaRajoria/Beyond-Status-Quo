@@ -1,0 +1,411 @@
+<!--template from codepen website (https://blog.codepen.io/2018/02/16/need-make-tournament-bracket/) -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<style>
+
+  html {
+  height: 100%;
+  width: 100%;
+  }
+
+  body {
+  font-family: sans-serif;
+  margin: 0;
+  height: 100%;
+  }
+
+  .tournament-headers {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 1px solid #ccc;
+
+  h3 {
+    width: 25%;
+    text-align:center;
+    font-weight: 400;
+    border-right: 1px dashed #ccc;
+    margin: 0;
+    padding:1rem;
+  }
+  }
+
+h3 {
+  color: white;
+}
+
+  .tournament-brackets {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  background: #fdfdfd;
+  margin-bottom: 50px;
+  }
+
+  .bracket {
+  padding-left: 0;
+  display: flex;
+  margin: 0;
+  padding: 30px 0;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  list-style-type: none;
+  border-right: 1px dashed #ccc;
+  flex: 1;
+  }
+
+  .team-item {
+  background-color: #f4f4f4;
+  padding: 0.5rem;
+  display: block;
+  margin: 0.5rem 10px;
+  position: relative;
+  vertical-align: middle;
+  line-height: 2;
+  text-align: center;
+  }
+
+  .team-item:after {
+  content:'';
+  border-color: #4f7a38;
+  border-width: 2px;
+  position: absolute;
+  display: block;
+  width: 10px;
+  right: -11px;
+  }
+
+  .team-item:nth-of-type(odd):after {
+  border-right-style: solid;
+  border-top-style: solid;
+  height: 100%;
+  top: 50%;
+  }
+
+  .team-item:nth-of-type(even):after {
+  border-right-style: solid;
+  border-bottom-style: solid;
+  height: 100%;
+  top: -50%;
+  }
+
+  .team-item:before {
+  content:'';
+  border-top: 2px solid #4f7a38;
+  position: absolute;
+  height: 2px;
+  width: 10px;
+  left: -10px;
+  top: 50%;
+  }
+
+  .bracket-2 {
+    .team-item:nth-of-type(odd):after {
+    height: 200%;
+    top: 50%;
+  }
+  .team-item:nth-of-type(even):after {
+    height: 200%;
+    top: -150%;
+  }
+  }
+
+  .bracket-3 {
+  .team-item:nth-of-type(odd):after {
+    height: 350%;
+    top: 50%;
+  }
+  .team-item:nth-of-type(even):after {
+    height: 350%;
+    top: -300%;
+  }
+  }
+
+  .bracket-4 {
+  .team-item:nth-of-type(odd):after {
+    height: 700%;
+    top: 50%;
+  }
+  .team-item:nth-of-type(even):after {
+    height: 700%;
+    top: -650%;
+  }
+  }
+
+  .bracket:first-of-type {
+  .team-item:before {
+    display: none;
+  }
+  }
+
+  .bracket-4 {
+  .team-item:after {
+    display: none;
+  }
+  }
+
+  .bracket:last-of-type {
+  .team-item:before,
+  .team-item:after {
+    display: none;
+  }
+  }
+
+  .team-item time {
+  display: inline-block;
+  background-color: #dbdbdb;
+  font-size: .8rem;
+  padding: 0 .6rem;
+  }
+body {
+    background-color: rgba(68, 78, 86, 1.6)!important;
+}
+
+
+</style>
+<body>
+
+  <div id="main">
+    <header id="header" >
+      <div class="container-fluid">
+
+        <div class="row justify-content-center">
+          <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+            <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+
+            <nav class="nav-menu d-none d-lg-block">
+              <ul>
+                {% if request.user.is_authenticated %}
+                <li><a href="/user/">{{user}}</a></li>
+                <li> <a href="/logout/">Logout</a></li>
+                {% else %}
+                <li><a href="/">Login</a></li>
+                {% endif %}
+                <li> </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <br>
+    <br>
+
+  <div class="tournament-container">
+    <div class="tournament-headers">
+      {% if break_round == '8' %}
+        <h3>Round of 16</h3>
+        <h3>Quarter-Finals</h3>
+        <h3>Semi-Finals</h3>
+        <h3>Final</h3>
+        <h3>Winner</h3>
+      {% endif %}
+
+      {% if break_round == '4' %}
+        <h3>Quarter-Finals</h3>
+        <h3>Semi-Finals</h3>
+        <h3>Final</h3>
+        <h3>Winner</h3>
+      {% endif %}
+
+      {% if break_round == '2' %}
+        <h3>Semi-Finals</h3>
+        <h3>Final</h3>
+        <h3>Winner</h3>
+      {% endif %}
+
+      {% if break_round == '1' %}
+        <h3>Final</h3>
+        <h3>Winner</h3>
+      {% endif %}
+
+    </div>
+
+    <div class="tournament-brackets">
+      {% if break_round == '8' %}
+        {% for x in break_round_results %}
+        {% if x.0 == "B1" %}
+          <ul class="bracket bracket-1">
+            {% for y in x.1 %}
+              {% if y.0.0 != None %}
+                <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+              {% else %}
+                <li class="team-item">&nbsp;</li>
+          {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if x.0 == "B2" %}
+          <ul class="bracket bracket-2">
+            {% for y in x.1 %}
+              {% if y.0.0 != None %}
+                <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+              {% else %}
+                <li class="team-item">&nbsp;</li>
+          {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if x.0 == "B3" %}
+          <ul class="bracket bracket-3">
+            {% for y in x.1 %}
+              {% if y.0.0 != None %}
+                <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+              {% else %}
+                <li class="team-item">&nbsp;</li>
+              {% endif %}
+             {% endfor %}
+          </ul>
+        {% endif %}
+        {% if x.0 == "B4" %}
+          <ul class="bracket bracket-4">
+            {% if x.1.0.0 != None %}
+              <li class="team-item"> {{x.1.0.0}} vs {{x.1.0.1}} (judge: {{x.1.0.2}})</li>
+            {% else %}
+              <li class="team-item">&nbsp;</li>
+            {% endif %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+      <ul class="bracket bracket-5">
+        {% if winner != None %}
+          <li class="team-item">{{winner}}</li>
+        {% else %}
+          <li class="team-item">&nbsp;</li>
+        {% endif %}
+      </ul>
+      {% endif %}
+
+      {% if break_round == '4' %}
+
+        {% for x in break_round_results %}
+          {% if x.0 == "B1" %}
+            <ul class="bracket bracket-2">
+              {% for y in x.1 %}
+                {% if y.0.0 != None %}
+                  <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+                {% else %}
+                  <li class="team-item">&nbsp;</li>
+            {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if x.0 == "B2" %}
+            <ul class="bracket bracket-3">
+              {% for y in x.1 %}
+                {% if y.0.0 != None %}
+                  <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+                {% else %}
+                  <li class="team-item">&nbsp;</li>
+            {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if x.0 == "B3" %}
+          <ul class="bracket bracket-4">
+            {% if x.1.0.0 != None %}
+              <li class="team-item"> {{x.1.0.0}} vs {{x.1.0.1}} (judge: {{x.1.0.2}})</li>
+            {% else %}
+              <li class="team-item">&nbsp;</li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        {% endfor %}
+        <ul class="bracket bracket-5">
+          {% if winner != None %}
+            <li class="team-item">{{winner}}</li>
+          {% else %}
+            <li class="team-item">&nbsp;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+
+      {% if break_round == '2' %}
+        {% for x in break_round_results %}
+          {% if x.0 == "B1" %}
+            <ul class="bracket bracket-3">
+              {% for y in x.1 %}
+                {% if y.0.0 != None %}
+                  <li class="team-item"> {{y.0}} vs {{y.1}} (judge: {{y.2}})</li>
+                {% else %}
+                  <li class="team-item">&nbsp;</li>
+            {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if x.0 == "B2" %}
+          <ul class="bracket bracket-4">
+            {% if x.1.0.0 != None %}
+              <li class="team-item"> {{x.1.0.0}} vs {{x.1.0.1}} (judge: {{x.1.0.2}})</li>
+            {% else %}
+              <li class="team-item">&nbsp;</li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        {% endfor %}
+        <ul class="bracket bracket-5">
+          {% if winner != None %}
+            <li class="team-item">{{winner}}</li>
+          {% else %}
+            <li class="team-item">&nbsp;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+
+      {% if break_round == '1' %}
+        {% if x.0 == "B1" %}
+          <ul class="bracket bracket-4">
+            {% if x.1.0.0 != None %}
+              <li class="team-item"> {{x.1.0.0}} vs {{x.1.0.1}} (judge: {{x.1.0.2}})</li>
+            {% else %}
+              <li class="team-item">&nbsp;</li>
+            {% endif %}
+          </ul>
+        {% endif %}
+        <ul class="bracket bracket-5">
+          {% if winner != None %}
+            <li class="team-item">{{winner}}</li>
+          {% else %}
+            <li class="team-item">&nbsp;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

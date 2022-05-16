@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<style>
+
+body {
+  background-color: rgba(33, 37, 41, 1)!important;
+}
+
+.shade {
+  color: rgba(33, 37, 41, 1)!important;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+
+<div id="main">
+  <header id="header" >
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+          <span style="color:red;font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+          <li class="shade"> </li>
+          <li class="shade"> </li>
+
+            <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a href="/tournament-landing/{{s}}/">Tournament Landing</a>
+              <a href="/tournament-entries/{{s}}/">Tournament Entries</a>
+              <div class="collapsible collapsible-accordion">
+                  <a class="collapsible-header">Tournament Pairings</a>
+                  <div class="collapsible-body">
+                    <ul>
+                        {% for x in l%}
+                            <a href="/tournament-pairings/{{s}}/{{x}}/">Round {{x}}</a>
+                        {% endfor %}
+                    </ul>
+                  </div>
+              </div>
+              <div class="collapsible collapsible-accordion">
+                  <a class="collapsible-header">Tournament Results</a>
+                  <div class="collapsible-body">
+                    <ul>
+                        {% for x in l%}
+                            <a href="/tournament-results/{{s}}/{{x}}/">Round {{x}}</a>
+                        {% endfor %}
+                    </ul>
+                  </div>
+              </div>
+              <a href="/tournament-bracket/{{s}}/">Break Round Bracket</a>
+              {% if show_speaker_points %} 
+                 <a href="/speaker-point-ranking/{{s}}/">Best Speakers</a>
+              {% endif %}
+              <a href="/final-result/{{s}}/">Preliminary results</a>
+
+
+            </div>
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              {% if request.user.is_authenticated %}
+              <li><a href="/user/">{{user}}</a></li>
+              <li> <a href="/logout/">Logout</a></li>
+              {% else %}
+              <li><a href="/">Login</a></li>
+              {% endif %}
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<section id="hero" style='height: 100%!important;'>
+    <div class="main">
+      <h1> Preliminary Round Results </h1>
+      <br>
+      <br>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"> Team Name </th>
+            <th scope="col">Wins</th>
+            <th scope="col">Losses</th>
+          </tr>
+        </thead>
+            <tbody>
+              {% for x in stats %}
+                <tr>
+                    <td>{{x.0}}</td>
+                    <td>{{x.1}}</td>
+                    <td>{{x.2}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+      </table>
+
+
+      <br>
+
+    </div>
+  </section>
+
+
+
+  </div>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+    document.body.style.backgroundColor = "white";
+  }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href= "{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<style>
+
+
+input.form-check-input{
+  text-align: center!important;
+}
+
+
+  p {
+    font-size: 15px;
+    color: inherit!important;
+  }
+
+  
+
+body
+* {box-sizing: border-box;}
+
+
+body {
+  line-height: 0.01!important;
+}
+
+
+input[type=text], input[type=password], input[type=email] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: auto; /* Full height */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal {
+  overflow-y:auto;
+}
+
+
+</style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+
+        </div>
+      </div>
+    </div>
+
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+      <div id="id01" class="modal">
+        <form class="modal-content" action="" method="POST"> {% csrf_token %}
+          <div class="container">
+            <h1>Sign Up</h1>
+            <p>Fill in this form to create an account</p>
+            <hr>
+            {% if message is not None %}
+              <div class="alert alert-danger" role="alert">
+              {{message}}
+              </div>
+            {% endif %}
+            <label for="email"><b>Email</b></label>
+            <input type="email" placeholder="Enter Email" name="email" required>
+
+            <label for="text"><b>Full Name</b></label>
+            <input type="text" placeholder="Enter First Name and Last Name" name="name" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password"  minlength="8" placeholder="Enter Password" name="psw" required>
+
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input type="password"  minlength="8" placeholder="Repeat Password" name="psw-repeat" required>
+
+            <label for="text">Select School</label>
+            <select name="school" class="form-control">
+              {% for x in queryset %}
+              <option> {{x}} </option>
+              {% endfor %}
+              <option>Aditya Birla World Academy</option>
+              <option>Ahmedabad International School</option>
+              <option>Akshar Árbol International School</option>
+              <option>American Embassy School</option>
+              <option>American International School Chennai</option>
+              <option>American School of Bombay</option>
+              <option>BD Somani International School</option>
+              <option>C P Goenka International School</option>
+              <option>Canadian International School (Bangalore)</option>
+              <option>Candor International School</option>
+              <option>Dhirubhai Ambani International School</option>
+              <option>The Doon School</option>
+              <option>École Mondiale World School</option>
+              <option>Fountainhead School</option>
+              <option>Garodia International Centre for Learning</option>
+              <option>Greenwood High International School</option>
+              <option>Heritage Xperiential Learning School, Gurgaon</option>
+              <option>Indus Trust</option>
+              <option>Jamnabai Narsee School</option>
+              <option>JBCN International School</option>
+              <option>Kodaikanal International School</option>
+              <option>Mahatma Gandhi International School, Ahmedabad</option>
+              <option>Mahindra International School</option>
+              <option>UWC Mahindra College</option>
+              <option>MCTM Chidambaram Chettyar International IB School</option>
+              <option>Modern School, Lucknow</option>
+              <option>Mount Litera School International</option>
+              <option>NES International School</option>
+              <option>Pallavi Model School</option>
+              <option>Pathways Schools</option>
+              <option>SelaQui International School</option>
+              <option>Sharad Pawar International School</option>
+              <option>The Shri Ram School</option>
+              <option>Silver Oaks International School - Bachupally Campus, Hyderabad</option>
+              <option>Singapore International School, Mumbai</option>
+              <option>Stonehill International School</option>
+              <option>Symbiosis International School</option>
+              <option>Trio World Academy</option>
+              <option>Victorious Kidss Educares</option>
+            </select>
+            <p> </p>
+            <label for="role"><b>Role</b></label>
+            <br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="judge" required>
+              <label class="form-check-label" for="inlineRadio1">Judge</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="role" id="inlineRadio2" value="student">
+              <label class="form-check-label" for="inlineRadio2">Student</label>
+            </div>
+
+
+            <div class="clearfix">
+              <button type="submit" class="signupbtn" name="action" value="sub">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+  </section><!-- End Hero -->
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+ <!-- Vendor JS Files -->
+ <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+ <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+
+ 
+
+ <!-- Template Main JS File -->
+ <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

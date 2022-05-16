@@ -1,0 +1,335 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+form {
+  margin: 0 auto;
+}
+
+h1 {
+color: white;
+text-align: center;
+}
+
+
+/*
+  #General  {
+    color: white;
+    display: none;
+    padding: 10%!important;
+    text-align: center;
+    overflow: initial;
+  }
+*/
+
+button.btn, select  {
+  font-size: 15px!important;
+}
+
+  #Entries {background-color:white;}
+
+#hero {
+height: 100%!important;
+}
+
+.main {
+    min-height: 20px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: white;
+    padding-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+
+/* .main2 {
+  min-height: 20px;
+  width: 200px;
+  margin: 0 auto;
+  background-color:white;
+  padding: 20px;
+  text-align: center;
+} */
+
+
+.row {
+  margin: 0 auto!important;
+  top: 50%;
+  position: relative;
+}
+
+
+</style>
+</head>
+
+<body>
+
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          <h1 class="logo mr-auto"><a class="headerclass" href="/">Beyond Status Quo</a></h1>
+         
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li><a href="/school-landing/">back</a></li>
+              <li> <a href="/user/">{{user}}</a></li>
+              <li> <a href="/logout/">logout</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <div id="Entries">
+  <section id="hero">
+  <br><br><br>
+
+    <h1> Registering For Tournament </h1> 
+    <br>
+
+
+
+    <form method="POST" action=""> {% csrf_token  %}
+      <div id="Entries" class="tabcontent">
+        {% if multiple_entry == True %}
+          <div class="alert alert-danger" role="alert">
+            Please pick different students.
+          </div>
+        {% endif %}
+        
+        {% if message is not None %}
+            <div class="alert alert-danger" role="alert">
+            {{message}}
+            </div>
+          {% endif %}
+
+        {% if judge_already_exists == True %}
+          <div class="alert alert-danger" role="alert">
+            {{judge_already_exists_value}} already exists
+          </div>
+        {% endif %}
+
+        {% if pick_judge == True %}
+          <div class="alert alert-danger" role="alert">
+            Please pick a judge.
+          </div>
+        {% endif %}
+
+        {% if already_exists|length != 0 %}
+          <div class="alert alert-danger" role="alert">
+            Sorry
+            {% for x in already_exists%}
+            , {{x}}
+            {% endfor %}
+            {% if already_exists|length == 1 %}
+            is
+            {%else%}
+            are
+            {% endif %}
+             already in a team.
+          </div>
+        {% endif %}
+        
+        <br><br><br>
+        <div class="row">
+          <div class="column">
+
+            <h3> Add Student to tournament </h3>
+            <br>
+            <div class="main">
+
+              <div class="row">
+                <div class="col-md-12 text-center">
+
+                  {% for y in l %}
+                    <div class="dropdown btn-group">
+                      <div class="form-group">
+                        <select name="student_picked{{y}}" class="form-control">
+                            <option>Choose...</option>
+                            {% for x in students %}
+                            <option>{{x}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                  {% endfor %}
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="main2">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class="dropdown btn-group">
+                    <button type="submit" class="btn btn-primary" name="action" value="sub_student">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <h3> Add Judge to tournament </h3>
+            <br>
+            <div class="main">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class="dropdown btn-group">
+                    <div class="form-group">
+                      {% if only_school_judge == False %}
+                        <select name="judge_picked" class="form-control">
+                      {% elif only_school_judge == True %}
+                        <select name="judge_picked" class="form-control" disabled>
+                      {% endif %}
+                        <ul class="dropdown-menu">
+                          <option>Choose...</option>
+                          {% for x in judges %}
+                          <li><option>{{x}}</option></li>
+                          {% endfor %}
+                        </ul>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="main2">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class="dropdown btn-group">
+                    {% if only_school_judge == False %}
+                      <button type="submit" class="btn btn-primary" name="action" value="sub_judge">Submit</button>
+                      </div>
+                    {% elif only_school_judge == True %}
+                      <button type="submit" class="btn btn-primary" name="action" value="sub_judge" disabled>Submit</button>
+                    </div>
+                    <div>The hosting school will be providing all the judges</div>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      <table id="tbUser" class="table table-hover">
+        {% if list %}
+          <thead>
+            <tr>
+              <th scope="col">Team Name</th>
+              <th scope="col">Members</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in list %}
+                <tr>
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>
+                  {% if i.0 != "N/A" %}
+                    <a href="{{i.0}}/delete/">Remove</a>
+                  {% else %}
+                    <a href="{{i.1}}/delete_judge/">Remove</a>
+                  {% endif %}
+                </td>
+            {% endfor %}
+          </tbody>
+        {% endif %}
+        
+      </table>
+      <p></p>
+      
+      
+      
+
+      <script>
+        $(document).ready(function(){
+
+        $("#tbUser").on('click','.btnDelete',function(){
+        $(this).closest('tr').hide();
+        });
+
+        });
+      </script>
+      <br><br><br><br><br><br>
+    </div>
+  </section>
+</div>
+
+    <footer id="footer" class="footer">
+      <div class="container">
+        <br>
+        <div class="credits">
+        © 2020 Beyond Status Quo, All rights reserved.
+        </div>
+      </div>
+    </footer>
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+<style>
+
+
+body {
+  background-color: rgba(33, 37, 41, 1)!important;
+}
+.shade {
+  color: rgba(33, 37, 41, 1)!important;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<div id="main">
+  <header id="header" >
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+          <li class="shade"> </li>
+          <li class="shade"> </li>
+
+
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li><a href="/landing/">back</a></li>
+              <li> <a href="/user/">{{user_name}}</a></li>
+              <li> <a href="/logout/">Logout</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<section id="hero" style='height: 100%!important;'>
+    <div class="main">
+
+        <h1 style="text-align: center;">Comments for {{tournament_name}}</h1>
+    
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Round number</th>
+                <th scope="col">Team Name</th>
+                <th scope="col">Opponent Team Name</th>
+                <th scope="col">Judge</th>
+                <th scope="col">Judge's Comment</th>
+              </tr>
+            </thead>
+        <br>
+        {% for x in info %} 
+          <tbody>
+                <tr>
+                  <td>{{x.0}}</td>
+                  <td>{{x.1}}</td>
+                  <td>{{x.2}}</td>
+                  <td>{{x.3}}</td>
+                  <td>{{x.4}}</td>
+                </tr>
+          </tbody>
+        {% endfor %}
+        </table>
+    </div>
+  </section>
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+   <!-- Vendor JS Files -->
+   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+   <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  
+   <!-- Template Main JS File -->
+   <script src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+
+</html>

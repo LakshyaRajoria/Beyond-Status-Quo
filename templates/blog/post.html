@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>BSQ Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'css/style_blog.css' %}" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+</head>
+
+<body>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BSQ Blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  </head>
+
+<body>
+    <br>
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/blog/">BSQ Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/blog/">Back
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+		<!-- <div class="ml-auto my-2 my-lg-0">
+        <div class="section" id="b-section-navbar-search-form" name="Navbar: search form"><div class="widget BlogSearch" data-version="2" id="BlogSearch1">
+        <form action="" class="form-inline">
+        <input aria-label="Search this blog" class="form-control mr-sm-2" name="q" placeholder="Search this blog" type="text">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        </div></div>
+        </div> -->
+        </div>
+      </div>
+    </nav>
+	
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+          <!-- Title -->
+          <h1 class="mt-4">{{title}}</h1>
+          <!-- Author -->
+          <p class="lead">
+            by {{author}}
+          </p>
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>Posted on {{date}}</p>
+
+          <hr>
+
+          {% if banner is not None %}
+          <!-- Preview Image -->
+          <img class="card-img-top" src="{{banner}}" alt="Card image cap">
+          {% else %}
+          <img class="card-img-top" src="{% static 'img/no_image.jpg' %}" alt="Card image cap">
+          {% endif %}
+          <hr>
+
+          <!-- Post Content -->
+          <p class="lead">
+              {% for x in body %}
+              <p>{{x}}</p>
+              {% endfor %}
+          </p>
+          <hr>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <!-- <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="card my-3">
+            <h5 class="card-header">Latest Posts</h5>
+            <div class="card-body">
+              <div class="row">
+                  <ul>
+                    {% for x in latest %}
+                    <li>
+                      <a href="/blog/post/{{x.id}}/">{{x.title}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+              </div>
+            </div>
+          </div>
+
+        {% if prev is not None %}
+        <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Previous Post</h5>
+            <div class="card-body">
+                <a href="/blog/post/{{prev.id}}/">{{prev.title}}</a>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if next is not None %}
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Next Post</h5>
+            <div class="card-body">
+                <a href="/blog/post/{{next.id}}/">{{next.title}}</a>
+            </div>
+          </div>
+          {% endif %}
+        
+          {% if bio is not None %}
+        <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">About Me</h5>
+            <div class="card-body">
+              <p>{{bio}}</p>
+            </div>
+          </div>
+          {% endif %}
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

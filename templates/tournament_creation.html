@@ -1,0 +1,409 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+   <!-- Vendor CSS Files -->
+   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+   <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+
+   <!-- Template Main CSS File -->
+   <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+<style>
+
+
+
+
+body
+* {box-sizing: border-box;}
+
+
+body {
+  line-height: 0.01!important;
+}
+
+
+input[type=text], input[type=password], input[type=number] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+.modal {
+  overflow-y:auto;
+}
+
+div.alert{
+  font-size: 15px!important;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .one {font-size: 10px;}
+   
+}
+</style>
+</head>
+
+<body>
+
+
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li><a href="/school-landing/">back</a></li>
+              <li> <a href="/user/">{{user}}</a></li>
+              <li> <a href="/logout/">logout</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section id="hero">
+
+      <div id="id01" class="modal">
+        <form class="modal-content" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+          <div class="container">
+            <h1>Create a Tournament</h1>
+            <hr>
+            {% if message is not None %}
+              <div class="alert alert-danger" role="alert">
+              {{message}}
+              </div>
+            {% endif %}
+            <label for="text"><b>Tournament Name</b></label>
+            <input type="text" class="form-control" placeholder="Enter Tournament Name" name="tournament_name" required>
+
+
+            <div class="row">
+              <div class="col col-xs-2">
+                <label for="text"><b>Start Date</b></label>
+                <input type="date" class="form-control" placeholder="Start Date" name="start-date" required>
+              </div>
+              <div class="col col-xs-2">
+                <label for="text"><b>End Date</b></label>
+                <input type="date" class="form-control" placeholder="End Date" name="end-date" required>
+              </div>
+              
+            {% if mobile %}
+            </div>
+            <p></p>
+            <div class="row">
+            {% endif %}
+              <div class="col col-xs-2">
+                <label for="text"><b>Tournament Registration Deadline</b></label>
+                <input type="date" class="form-control" placeholder="Registration deadline" name="reg_deadline" required>
+              </div>
+            </div>
+
+            <p>
+            </p>
+
+            <label for="exampleFormControlTextarea1"><b>Tournament Description</b></label>
+            <textarea cols="110" placeholder="Tournament Description" class="form-control" name="tournament_description" rows="3" required></textarea>
+
+            <p></p> 
+            <p></p> 
+
+            <div class="row">
+              <div class="col col-xs-2">
+                <label for="break_rounds">What Does Tournament Break To?</label>
+                <select id="break_rounds" class="form-control" name="break_rounds">
+                  <option selected>Choose...</option>
+                  <option value="1">  Finals </option>
+                  <option value="2"> Semi-Finals </option>
+                    <option value="4"> Quarter-Finals </option>
+                  <option value="8"> Octo-Finals </option>
+                </select>
+              </div>
+              {% if mobile %}
+            </div>
+            <p></p>
+            <div class="row">
+            {% endif %}
+              <div class="col col-xs-2">
+								<label for="text"><b>Number of Rounds</b></label>
+								<input type="number" class="form-control" placeholder="Number of Rounds in Tournament" name="num_rounds" min="0"  required />
+              </div>
+              {% if mobile %}
+            </div>
+            <p></p>
+            <div class="row">
+            {% endif %}
+							<div class="col col-xs-2">
+								<label for="text"><b>Minimum # of Students in Team</b></label>
+								<input type="number" class="form-control" placeholder="Minimum Number of Students in a Team" name="min_students"  min="0" required />
+              </div>
+              {% if mobile %}
+            </div>
+            <p></p>
+            <div class="row">
+            {% endif %}
+              <div class="col col-xs-2">
+								<label for="text"><b>Maximum # of Students in Team</b></label>
+								<input type="number" class="form-control" placeholder="Maximum Number of Students in a Team" name="max_students" min="0" required />
+              </div>
+              {% if mobile %}
+            </div>
+            <p></p>
+            <div class="row">
+            {% endif %}
+							<div class="col col-xs-2">
+								<label for="text"><b>Max # of Teams From One School</label>
+								<input type="number" class="form-control" placeholder="Max Number of Teams From One School" name="max_teams"  min="0" required />
+							</div>
+						</div>
+
+            <div class ="t selectt">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputStreet">Street Name</label>
+                <input type="text" class="form-control" placeholder="Enter Street" id="inputStreet" name="street_name">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" placeholder="Enter City" id="inputCity" name="tournament_city">
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control" name="tournament_state">
+                  <option selected>Choose...</option>
+                  <option> Andhra Pradesh </option>
+                  <option> Arunachal Pradesh </option>
+                  <option>	Assam	 </option>
+                  <option> Bihar </option>
+                  <option>	Chhattisgarh </option>
+                  <option>	Goa </option>
+                  <option> Gujarat	 </option>
+                  <option>	Haryana	</option>
+                  <option>	Himachal Pradesh </option>
+                  <option>	Jharkhand </option>
+                  <option>	Karnataka </option>
+                  <option>	Kerala </option>
+                  <option>	Madhya Pradesh </option>
+                  <option>	Maharashtra </option>
+                  <option>	Manipur	 </option>
+                  <option>	Meghalaya	 </option>
+                  <option>	Mizoram </option>
+                  <option>	Nagaland	 </option>
+                  <option>	Odisha </option>
+                  <option>	Punjab	 </option>
+                  <option>	Rajasthan </option>
+                  <option>	Sikkim	 </option>
+                  <option>	Tamil Nadu	 </option>
+                  <option>	Telangana	 </option>
+                  <option>	Tripura	 </option>
+                  <option>	Uttar Pradesh	</option>
+                  <option> Uttarakhand </option>
+                  <option> West Bengal	</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputZip">Pin Code</label>
+                <input type="text" placeholder="Enter Pin Code" class="form-control" id="inputZip" name="tournament_pin">
+              </div>
+            </div>
+          </div>
+         <div class="row">
+              <div class="col col-xs-2">
+                <h3>Do you wish to make speaker-points available for anyone to see</h3> 
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="speaker_point_available" id="inlineRadio1" value=True required>
+                  <label class="form-check-label" for="inlineRadio1">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="speaker_point_available" id="inlineRadio2" value=False>
+                  <label class="form-check-label" for="inlineRadio2">No</label>
+                </div>
+              </div>
+          </div> 
+          <br> 
+          <br> 
+          <p></p> 
+            <div class="row">
+              <div class="col col-xs-2">
+                <label for="online">Online Tournament</label>
+                <input type="checkbox" class="form-control" value="t" id="online" name="online_bool">
+              </div>
+                {% if mobile %}
+                </div>
+                <p></p>
+                <div class="row">
+              {% endif %}
+              <div class="col col-xs-2">
+                <label for="home_judges">My school will provide all the judges</label>
+                <input type="checkbox" class="form-control" id="home_judges" name="school_judge">
+              </div>
+              {% if mobile %}
+              </div>
+              <p></p>
+              <div class="row">
+            {% endif %}
+              <div class="col col-xs-2">
+                <label for="private">Private Tournament</label>
+                <input type="checkbox" class="form-control" id="private" name="private_bool">
+              </div>
+            </div>
+
+
+            <hr> 
+
+            <!-- <label for="file-upload" class="custom-file-upload">
+                <input type="file" id='file-upload' name="myfile" multiple/>
+                Upload any file(s)
+            </label>
+            <span id="file-selected">
+            </span> -->
+
+
+
+            <div class="clearfix">
+              <button type="submit" class="signupbtn" value="sub" name="action">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+  </section>
+
+
+
+
+
+    <footer id="footer">
+      <div class="container">
+        <br>
+        <div class="credits">
+        © 2020 Beyond Status Quo, All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+<script>
+$('#file-upload').bind('change', function() { var fileName = ''; fileName = 'File uploaded'; $('#file-selected').html(fileName); })
+</script>
+
+<script type="text/javascript"> 
+  $(document).ready(function() { 
+      $('input[type="checkbox"]').click(function() { 
+          var inputValue = $(this).attr("value"); 
+          $("." + inputValue).toggle(); 
+      }); 
+  }); 
+</script> 
+
+</body>
+
+</html>

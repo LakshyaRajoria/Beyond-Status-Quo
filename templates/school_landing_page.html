@@ -1,0 +1,436 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+<style>
+
+
+a.headerclass {
+  font-size: 30px!important;
+}
+
+  .tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
+}
+
+
+
+section {
+  padding: 0px 0!important;
+}
+
+
+h1 {
+color: black;
+text-align: center;
+}
+
+h3 {
+  color: black;
+  text-align:center;
+  font-size: 25px!important; 
+}
+
+
+  .tablink:hover {
+    background-color: #777;
+  }
+
+
+  .tabcontent {
+    color: white;
+    display: none;
+    padding: 11%;
+    text-align: center;
+    overflow: initial;
+
+  }
+
+  #General {background-color:white;}
+  #Students {background-color:white;}
+
+  .modal {
+  display: None; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+button {
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 600px) {
+    h1 {font-size: medium;}
+    table {width: 100%; }
+    th, td {font-size: 10px;white-space: nowrap; overflow: hidden; width: 100%;text-overflow:inherit; }
+    .tablink {font-size: medium;}
+}
+</style>
+</head>
+
+<body>
+  <header id="header">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          {% if mobile %}
+          <div class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn"><i class="fa fa-bars"></i></a>
+            <div class="dropdown-content">
+              <a href="/">back</a>
+              <a href="/user/">{{user.name}}</a>
+              <a href="/logout/">logout</a>
+              <a href="create-tournament/">Create a Tournament</a>
+            </div>
+          </div>
+          <h1 class="logo mr-auto" style="font-size: 20px;"><a href="/">&nbsp;&nbsp;&nbsp;&nbsp;Beyond Status Quo</a></h1>
+          {% else %}
+          <h1 class="logo mr-auto"><a class="headerclass" href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li><a href="/">back</a></li>
+              <li> <a href="/user/">{{user.name}}</a></li>
+              <li> <a href="/logout/">logout</a></li>
+              <li> <a href="create-tournament/">Create a Tournament</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section id="hero" style='height: 100%!important;'>
+    <br>
+    <h1 style="color: white;"> Welcome {{school_name}}! <br>Manage Tournaments and School Roster </h1>
+    <br>
+    <button class="tablink" onclick="openCity('General', this, 'teal')" id="defaultOpen">Upcoming Tournaments</button>
+    <button class="tablink" onclick="openCity('Students', this, 'teal')">Students & Judges Roster</button>
+
+
+    <div id="General" class="tabcontent">
+      {% if object_list1|length != 0 %}
+        <h1>Upcoming Tournaments</h1>
+        <br>
+        <table id="tbUser" class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Tournament Name</th>
+              <th scope="col">Contact Information</th>
+              <th scope="col">Dates</th>
+              <th scope="col">School</th>
+              <th scope="col">Address</th>
+              <th scope="col">Edit My Teams</th>
+              <th scope="col">Edit Schools</th>             
+              <th scope="col">Leave Tournament</th>
+              <th scope="col">Administrate</th>
+              <th scope="col">Delete Tournament</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            {% for i in object_list1 %}
+              <tr>
+                <td id='title'><a href="/tournament-landing/{{i.0.name}}/">{{i.0.name}}</a></td>
+                {% if user.school == i.0.host %}
+                  <td><a href="/contact-information/{{i.0.name}}/">Contacts</a></td>
+                {% else %}
+                  <td>You are not the host</td>
+                {% endif %}
+                <td>{{i.0.start_date}} ~ {{i.0.end_date}}</td>
+                <td>{{i.0.host}}</td>
+                {% if i.0.pin_code != "Online" %}
+                  <td>{{i.0.street}}, {{i.0.city}}, {{i.0.state}}, {{i.0.pin_code}}</td>
+                {% else %}
+                  <td>This tournament is held online</td>
+                {% endif %}
+                {% if i.4 %}
+                  <td><a href='register-for-tournament/{{ i.0.name }}/'>Edit</a></td>
+                {% else %}
+                  <td> Sorry. Can No Longer Edit </td>
+                {% endif %}
+                {% if i.2 %}
+                <td><a href="#" onclick="document.getElementById('{{i.0.name}}').style.display='block'">Edit</a></td>
+                <div id="{{i.0.name}}" class="modal">
+                  <div class="modal-content animate">
+                    <div class="imgcontainer">
+                      <span onclick="document.getElementById('{{i.0.name}}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+                    <div class="container">
+                              <h1 style="color: black;">School Name | Delete</h1>
+                          {% for j in i.3 %}
+                              <div style="color: black; font-size: 20px;">{{j}} | <a href="/school-landing/edit-registered-schools/{{i.0.name}}/{{j}}/" onclick="return confirm('Are you sure you want to remove this school?');">Remove</a></div>
+                          {% endfor %}
+                    </div>
+
+                    <div class="container" style="background-color:#f1f1f1">
+                      <button type="button" onclick="document.getElementById('{{i.0.name}}').style.display='none'" class="cancelbtn">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  // Get the modal
+                  var modal = document.getElementById('{{i.0.name}}');
+                  
+                  // When the user clicks anywhere outside of the modal, close it
+                  window.onclick = function(event) {
+                      if (event.target == modal) {
+                          modal.style.display = "none";
+                      }
+                  }
+                  </script>
+                {% else %}
+                  <td>You cannot edit</td>
+                {% endif %}
+                <td>
+                  <a href="leave/{{school_name}}/{{i.0.name}}">Leave</a>
+                </td>
+                {% if i.1 %}
+                  {% if not i.2 %}
+                    <td><a href="../{{i.0.name}}/tournament-administration-base/">Administration</a></td>
+                  {% else %}
+                    <td>Tournament hasn't begun yet</td>
+                  {% endif %}
+                  <td><a href="{{i.0.name}}/delete_tournament/" onclick="return confirm('Are you sure you want to delete this tournament?');">Delete</a></td>
+                {% else %}
+                  <td>You are not the host</td>
+                  <td>You are not the host</td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      {% endif %}
+
+      <p> </p>
+
+      {% if object_list|length != 0 %}
+        <h1>Other Tournaments</h1>
+        <br>
+        <table id="tbUser" class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Tournament Name</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Registration Deadline</th>
+              <th scope="col">School</th>
+              <th scope="col">Address</th>
+              <th scope="col">Register</th>
+
+            </tr>
+
+          </thead>
+          <tbody>
+            {% for i in object_list %}
+              <tr>
+                <td id='title'><a href="/tournament-landing/{{i.name}}/">{{i.name}}</a></td>
+                <td>{{i.start_date}}</td>
+                <td>{{i.end_date}}</td>
+                <td>{{i.reg_deadline}}</td>
+                <td>{{i.host}}</td>  
+                {% if i.pin_code != "Online" %}
+                <td>{{i.street}}, {{i.city}}, {{i.state}}, {{i.pin_code}}</td>
+                {% else %}
+                  <td>This tournament is held online</td>
+                {% endif %}
+                <td><a href="register-for-tournament/{{ i.name }}/">Register</a></td></tr>
+            {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+
+      </div>
+      
+      <div id="Students" class="tabcontent">
+        {% if requests %}
+          <h1> School Join Requests </h1> 
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Accept</th>
+                <th scope="col">Reject</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for x in requests %}
+                <tr>
+                  <td id='title'>{{x.name}}</td>
+                  <td>{{x.email}}</td>
+                  {% if x.judge %}<td>Judge</td>{%endif%}
+                  {% if x.student %}<td>Student</td>{%endif%}
+                  <td><a href="/school-landing/accept/{{x.school}}/{{x.email}}/">Accept</a></td>
+                  <td><a href="/school-landing/remove_permanently/{{x.school}}/{{x.email}}/">Reject</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </tbody>
+        {% endif %}
+        <br> 
+        <br> 
+        <p></p> 
+        <h1> Students/Judges on Roster </h1> 
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in student %}
+            <tr>
+              <td id='title'>{{x.name}}</td>
+              <td>{{x.email}}</td>
+              <td>Student</td>
+              <td><a href="/school-landing/remove_permanently/{{x.school}}/{{x.email}}/" onclick="return confirm('Are you sure to remove {{x.name}} from the roster');">Remove</a></td>
+            </tr>
+            {% endfor %}
+            {% for x in judge %}
+            <tr>
+              <td id='title'>{{x.name}}</td>
+              <td>{{x.email}}</td>
+              <td>Judge</td>
+              <td><a href="/school-landing/remove_permanently/{{x.school}}/{{x.email}}/" onclick="return confirm('Are you sure to remove {{x.name}} from the roster');">Remove</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </section>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+    <footer id="footer">
+      <div class="container">
+        <br>
+        <div class="credits">
+        © 2020 Beyond Status Quo, All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+<script>
+function openCity(tab_,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(tab_).style.display = "block";
+  elmnt.style.backgroundColor = color;
+
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+
+</body>
+
+</html>

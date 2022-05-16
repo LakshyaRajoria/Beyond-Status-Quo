@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<style>
+body {
+  background-color: rgba(33, 37, 41, 1)!important;
+}
+.modal {
+  display: None; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+
+.container {
+  padding: 5px;
+}
+
+.specialcolor {
+  color: #fff!important;
+
+}
+
+h1 {
+  text-align:center;
+}
+
+.signupbtn {
+  width: 100%!important;
+}
+
+
+</style> 
+
+</head>
+
+<body>
+
+  {% if user.school == "" %}
+    <script>alert("You have been removed/rejected from the previous school roster!")</script>
+  {% endif %}
+
+  <header id="header">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          <h1 class="logo mr-auto"><a class="headerclass" href="/">Beyond Status Quo</a></h1>
+          
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              {% if user.school == "" %}
+                <li class="specialcolor"><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Register for school</a></li>
+
+                <div id="id01" class="modal">
+                    <div class="modal-content animate">
+                      <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                      </div>
+                      <div class="container">
+                        <h1 style="color: black;">Select School</h1>
+                        <form class="modal-content" action="" method="POST"> {% csrf_token %}
+                          <select name="school" class="form-control">
+                              {% for x in schools %}
+                              <option> {{x}} </option>
+                              {% endfor %}
+                          </select>
+                          <button type="submit" class="signupbtn form-control" name="action" value="sub">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+              {% endif %}
+              <li><a href="/user/">{{user.name}}</a></li>
+              <li><a href="/logout/">logout</a></li>
+              <li> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+ <section id="hero" style='height: 100%!important;'>
+      <div class="main">
+        <h1 style="text-align: center;"> Welcome {{user.name}}</h1>
+        {% if tournaments_judged %}
+          <h3 style="text-align: center;"> These are the past or ongoing tournaments you are signed up for</h3>
+          <br>
+          <table id="tbUser" class="table table-hover">
+            <thead>
+              <tr>
+                  <th scope="col">Tournament Name</th>
+                {% if user.judge %}
+                  <th scope="col">Make Decisions</th>
+                {% else %}
+                  <th scope="col">See Comments</th>
+                {% endif %}
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in tournaments_judged %}
+                  <tr>
+                    <td id='title'><a href="/tournament-landing/{{x.0}}/">{{x.0}}</a></td>
+                  {% if user.judge %}
+                    <td><a href="../round-info/{{x.0}}/">decide</a></td>
+                  {% else %}
+                    <td><a href="../info/{{x.0}}/">comments</a></td>
+                  {% endif %}
+                  <td>{{x.1}}</td>
+                  <td>{{x.2}}</td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+        {% if future_tournaments %}
+          <h3 style="text-align: center;"> These are future tournaments you are signed up for</h3>
+          <br>
+          <table id="tbUser" class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Tournament Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in future_tournaments %}
+                  <tr>
+                  <td id='title'><a href="/tournament-landing/{{x.0}}/">{{x.0}}</a></td>
+                  <td>{{x.1}}</td>
+                  <td>{{x.2}}</td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+        {%if tournaments_judged|length == 0 and future_tournaments|length == 0 %}
+          <h3 style="text-align: center;">You have not been signed up for tournaments</h3>
+        {% endif %}
+      </div>
+
+
+  </section>
+
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+<script>
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script> 
+</body>
+
+</html>

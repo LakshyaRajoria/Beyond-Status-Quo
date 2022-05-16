@@ -1,0 +1,14 @@
+account name: {{name}}
+email: {{email}}
+school: {{school}}
+
+from school_lists table:
+    change school name from {{school}} __notverified__ --> {{school}}
+
+from Accounts table for record name {{name}}:
+    change school name to {{school}}
+
+if the account is fake:
+    delete {{name}} record from Accounts
+    delete {{school}} record from school_list
+    delete {{email}} from users

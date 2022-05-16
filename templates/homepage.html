@@ -1,0 +1,722 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CC12PN0C15"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CC12PN0C15');
+  </script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Beyond Status Quo</title>
+  <meta name="description" content="Working together to promote discourse on pertinent topics, reaching those of less privilege,
+  and learning more about the power of each of our voices.">
+  <meta name="keywords" content="Debate, public-speaking, India">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  {% comment %} for counter {% endcomment %}
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+<style>
+
+input[type=text], input[type=password], input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type=search] {
+  display: inline-block;
+  position: fixed;
+
+}
+
+h3 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #394047;
+  margin-bottom: 15px;
+}
+
+.modal {
+  display: None; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+h2 {
+  text-align: center!important;
+}
+
+div.alert{
+  font-size: 15px!important;
+  padding: 10px;
+}
+
+li a {
+  color: #fff;
+}
+
+.specialcolor {
+  color: #fff!important;
+
+}
+.hide {
+  display: None;
+}
+
+.biggersearch {
+  font-size: 17px!important;
+  color: inherit;
+}
+.img1 {
+border-radius: 50%;
+margin: auto auto;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.column {
+  width: 32.9333%;
+}
+
+p {
+  text-align:center;
+}
+
+.gallery {
+  margin: 10px 50px;
+  text-align: center;
+}
+
+.gallery img {
+  transition: 1s;
+  padding: 15px;
+  max-width: 32.3%;
+}
+
+.gallery img:hover {
+  filter: grayscale(100%);
+  transform: scale(1.1);
+}
+html,body
+{
+    overflow-x: hidden;
+}
+</style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center justify-content-end">
+
+          {% if mobile %}
+
+            <style>
+              .column{ width: 95%;}
+              .gallery img {padding: 10px; max-width: 32.0%;}
+              .modal-content {width: 80%;}
+              .gallery img:hover {filter: grayscale(0%);transform: scale(2);}
+              th, td {font-size: 10px;}
+            </style>
+
+            <div class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn"><i class="fa fa-bars"></i></a>
+              <div class="dropdown-content">
+                <a href="blog/">blog</a>
+                <a href="inst/">User Guide</a>
+                <a href="/rankings/">Rankings</a>
+                <a href="tournament-landing/JPIS Classical/">Demo Tournament</a>
+                {% if login %}
+                  {% if not verified %}
+                    <a href="/verify_email/" onclick='alert("Email will be sent on Your Email")'>Verify email</a>
+                  {% else %}
+                    <a href="{% url 'user' %}">{{user}}</a>
+                  {% endif %}
+                  <a href="/logout/">logout</a>
+                {% else %}
+                  <a href="{% url 'coach_signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up As Coach</a>
+                  <a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up As Student/Judge</a>
+                  <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                    <div id="id01" class="modal">
+                      <form class="modal-content animate" action="" method="POST" >{% csrf_token%}
+                        <div class="imgcontainer">
+                          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                          <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"  alt="Avatar" class="avatar">
+                        </div>
+                        <div class="container">
+                          <label for="uname"><b>Email</b></label>
+                          <input type="email" placeholder="Enter email" name="email" required>
+                          <label for="psw"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                          <button type="submit" name="action" value="sub">Login</button>
+                        </div>
+                        <div class="container" style="background-color:#f1f1f1">
+                          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                {% endif %}
+              </div>
+            </div>
+            <h1 class="logo mr-auto" style="font-size: 20px;"><a href="/">&nbsp;&nbsp;&nbsp;&nbsp;Beyond Status Quo</a></h1>
+          {% else %}
+          <h1 class="logo mr-auto"><a href="/">Beyond Status Quo</a></h1>
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li><a href="blog/">blog</a></li>
+              <li><a href="inst/">User Guide</a></li>
+              <li><a href="/rankings/">Rankings</a></li>
+              <li><a href="tournament-landing/JPIS Classical/">Demo Tournament</a></li>
+              <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Initiatives</a>
+                <div class="dropdown-content">
+                  <div id="Darshan_foundation"><a id="">Darshan Foundation</a></div>
+                  <div id="workshops"><a href="">Workshops</a></div>
+                </div>
+              </li>
+              <!-- <li><div id="workshops"><a href="">Workshops</a></div></li> -->
+              <li><div id="aboutus"><a href="">About Us</a></div></li>
+              {% if login %}
+                {% if not verified %}
+                <li><a href="/verify_email/" onclick='alert("Email will be sent on Your Email")'>Verify email</a></li>
+                {% else %}
+                  {% if user == "admin" %}
+                    <li><a href="stonewall@bsq">admin page</a></li>
+                  {% else %}
+                    {% if not school_verified %}
+                    <li><a href="/" onclick='alert("Your school has not been validated yet.")'>{{user}}</a></li>
+                    {% else %}
+                    <li><a href="{% url 'user' %}">{{user}}</a></li>
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+                <li><a href="/logout/">logout</a></li>
+              {% else %}
+                <li class="dropdown">
+                  <a href="javascript:void(0)" class="dropbtn">Sign Up</a>
+                  <div class="dropdown-content">
+                    <a href="{% url 'coach_signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up As Coach</a>
+                    <a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up As Student/Judge</a>
+                  </div>
+                </li>
+                <li class="specialcolor"><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              {% endif %}
+                <div id="id01" class="modal">
+
+                  <form class="modal-content animate" action="" method="POST" >{% csrf_token%}
+                    <div class="imgcontainer">
+                      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                      <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"  alt="Avatar" class="avatar">
+                    </div>
+
+                    <div class="container">
+                      <label for="uname"><b>Email</b></label>
+                      <input type="email" placeholder="Enter email" name="email" required>
+
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="psw" required>
+
+                      <button type="submit" name="action" value="sub">Login</button>
+                    </div>
+
+                    <div class="container" style="background-color:#f1f1f1">
+                      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+                <li>
+
+              </li>
+            </ul>
+          </nav>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="hero">
+
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+      <div class="carousel-inner" role="listbox">
+
+
+        <div class="carousel-item active" style="background-image: url(static/img/slide/new-4.svg)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animated fadeInDown">Welcome to <span>Beyond Status Quo</span></h2>
+              <p class="animated fadeInUp">Working together to promote discourse on pertinent topics, reaching those of less privilege, <br> and learning more about the power of each of our voices.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="carousel-item" style="background-image: url(static/img/slide/new-1.jpg)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animated fadeInDown">Beyond Status Quo</h2>
+              <p class="animated fadeInUp">We realized that there isn’t any platform in India right now that would allow one to see all the opportunities to showcase <br> their talents of argumentation or even to experience and learn from events that are happening around them. Thus, in the hopes of bringing to others a platform for debating and creating connections throughout our school, city, state and one day throughout the country we created Beyond Status Quo.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="carousel-item" style="background-image: url(static/img/slide/new-3.svg)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animated fadeInDown">Beyond Status Quo</h2>
+              <p class="animated fadeInUp">Through our platform users can create, administrate, <br> and participate in tournaments across India.  </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon icofont-simple-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon icofont-simple-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+
+    </div>
+  </section>
+
+  <main id="main">
+    <div style="height: 50px;"></div>
+      <div class="row" style="height: 100px;">
+        <div class="column" style="width: 5%;"></div>
+        <div class="column" style="width: 90%;">
+          <div class="counter" style="text-align: centre; border: 10px solid white; background-color: teal;">
+            <!-- <i class="fa fa-code fa-2x" style=" position: center;"></i><br> -->
+              <h2 class="timer count-title count-number" style="font-size: 70px; color: white;" data-to="5000" data-speed="4300"></h2>
+
+              <h3  style="font-size: 30px; color: white;" class="count-text">users registered</h3>
+        </div>
+      </div>
+      <div class="column" style="width: 5%;"></div>
+    </div>
+    <div style="height: 50px;"></div> <!-- you might want this line deleted in future -->
+
+    <div id="gallery2" class="gallery">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-f icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3>Collaboration with Darshan Foundation</h3>
+          </div>
+        </div>
+      </div>
+      <img src="{% static 'img/darshan/1.jpg' %}">
+      <p style="font-size: 20px;">showing educators presentation and meeting with them to learn needs and ways to approach students with hearing impairments</p>
+      <img src="{% static 'img/darshan/2.jpg' %}">
+      <img src="{% static 'img/darshan/3.jpg' %}">
+      <img src="{% static 'img/darshan/4.jpg' %}">
+      <p style="font-size: 20px;">Teaching debate fundamentals to students and having students share their thought on if they could travel outside Earth where would they go?!</p>
+      <img src="{% static 'img/darshan/5.jpg' %}">
+      <img src="{% static 'img/darshan/6.jpg' %}">
+      <img src="{% static 'img/darshan/7.jpg' %}">
+      <img src="{% static 'img/darshan/8.jpg' %}">
+      <img src="{% static 'img/darshan/9.jpg' %}">
+    </div>
+
+    <div id="gallery" class="gallery">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-f icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3>Workshops</h3>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 20px;">Whether it be in-person or not, we aim to bring debate to everyone.</p>
+      <img src="{% static 'img/slide/workshop/1.jpg' %}">
+      <img src="{% static 'img/slide/workshop/2.jpg' %}">
+      <img src="{% static 'img/slide/workshop/3.jpg' %}">
+      <img src="{% static 'img/slide/workshop/4.png' %}">
+      <img src="{% static 'img/slide/workshop/5.png' %}">
+      <img src="{% static 'img/slide/workshop/6.png' %}">
+      <img src="{% static 'img/slide/workshop/7.jpg' %}">
+      <img src="{% static 'img/slide/workshop/8.jpg' %}">
+      <img src="{% static 'img/slide/workshop/9.jpg' %}">
+    </div>
+
+    <div id="aboutus_">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-f icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+            <h3>About Us</h3>
+          </div>
+          <div class="row" style="width: 90%;">
+            <div class="column">
+              <div class="card">
+                <br>
+                <img src="{% static 'img/team/lakshya.png' %}" class="img1" style="width:90%">
+                <div class="container">
+                  <h2>Lakshya Rajoria</h2>
+                  <br>
+                  <p class="title">Founder</p>
+                  <p>Currently a senior at Jayshree Periwal International
+                    School, Lakshya aspires to make his mark on the world
+                    and is driven by his love for both entrepreneurship
+                    and technology in affecting change on the lives of
+                    others. Equally passionate about public speaking and
+                    helping those of less privilege in discovering the
+                    power of their voices, Lakshya aims to combine his
+                    passions to connect students everywhere in voicing
+                    their opinions and spark discourse to solutions to
+                    meaningful problems.
+                    </p>
+
+                  <p>Email me: lakshyarajoria@gmail.com</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+              <br>
+                <img src="{% static 'img/team/teerat.jpg' %}" class="img1" style="width:90%">
+                <div class="container">
+                  <h2>Teerth Jain</h2>
+                  <br>
+                  <p class="title">Co-founder, Developer</p>
+                  <p>A budding software engineer, Teerth has used his
+                    programming skills to help his community and provide
+                    students like him with more opportunities to spread
+                    their voices. While continuing to benefit the community,
+                    he aims to further his knowledge in a broad range of
+                    areas from computer science to economics and someday disrupt the status quo!
+                  </p>
+                  <br><br><br>
+                  <p>Email me: teerth3@gmail.com</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+              <br>
+                <img src="{% static 'img/team/me.jpg' %}" class="img1"  style="width:90%">
+                <div class="container">
+                  <h2>Daewoong Lim</h2>
+                  <br>
+                  <p class="title">Co-founder, Developer</p>
+                  <p>A high-school student with a passion for technology,
+                    Daewoong has proficient skills in web development and
+                    has an interest in data analytics. With this, he hopes
+                    to make education reach all underprivileged people
+                    and work towards a more equal society.
+                  </p>
+                  <br><br><br><br>
+                  <p>Email me: daewoong1025@gmail.com</p>
+                </div>
+              </div>
+            </div>
+
+            </div>
+          </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+
+
+
+
+    <footer id="footer">
+      <div class="container">
+        <br>
+        <div class="credits">
+        © 2020 Beyond Status Quo, All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  {% if message is not None %}
+    <script>alert("{{ message }}")</script>
+  {% endif %}
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+    $('#search').keyup(function() {
+  var regex = new RegExp($('#search').val(), "i");
+  var rows = $('table tr:gt(0)');
+  rows.each(function (index) {
+    title = $(this).children("#title").html()
+    if (title.search(regex) != -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+  });
+
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+$("#aboutus").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#aboutus_").offset().top
+    }, 2000, 'easeInOutExpo');
+    return false;
+});
+
+$("#Darshan_foundation").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#gallery2").offset().top
+    }, 2000, 'easeInOutExpo');
+    return false;
+});
+
+$("#workshops").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#gallery").offset().top
+    }, 2000, 'easeInOutExpo');
+    return false;
+});
+
+(function ($) {
+	$.fn.countTo = function (options) {
+		options = options || {};
+
+		return $(this).each(function () {
+			// set options for current element
+			var settings = $.extend({}, $.fn.countTo.defaults, {
+				from:            $(this).data('from'),
+				to:              $(this).data('to'),
+				speed:           $(this).data('speed'),
+				refreshInterval: $(this).data('refresh-interval'),
+				decimals:        $(this).data('decimals')
+			}, options);
+
+			// how many times to update the value, and how much to increment the value on each update
+			var loops = Math.ceil(settings.speed / settings.refreshInterval),
+				increment = (settings.to - settings.from) / loops;
+
+			// references & variables that will change with each update
+			var self = this,
+				$self = $(this),
+				loopCount = 0,
+				value = settings.from,
+				data = $self.data('countTo') || {};
+
+			$self.data('countTo', data);
+
+			// if an existing interval can be found, clear it first
+			if (data.interval) {
+				clearInterval(data.interval);
+			}
+			data.interval = setInterval(updateTimer, settings.refreshInterval);
+
+			// initialize the element with the starting value
+			render(value);
+
+			function updateTimer() {
+				value += increment;
+				loopCount++;
+
+				render(value);
+
+				if (typeof(settings.onUpdate) == 'function') {
+					settings.onUpdate.call(self, value);
+				}
+
+				if (loopCount >= loops) {
+					// remove the interval
+					$self.removeData('countTo');
+					clearInterval(data.interval);
+					value = settings.to;
+
+					if (typeof(settings.onComplete) == 'function') {
+						settings.onComplete.call(self, value);
+					}
+				}
+			}
+
+			function render(value) {
+				var formattedValue = settings.formatter.call(self, value, settings);
+				$self.html(formattedValue);
+			}
+		});
+	};
+
+	$.fn.countTo.defaults = {
+		from: 0,               // the number the element should start at
+		to: 0,                 // the number the element should end at
+		speed: 1000,           // how long it should take to count between the target numbers
+		refreshInterval: 100,  // how often the element should be updated
+		decimals: 0,           // the number of decimal places to show
+		formatter: formatter,  // handler for formatting the value before rendering
+		onUpdate: null,        // callback method for every time the element is updated
+		onComplete: null       // callback method for when the element finishes updating
+	};
+
+	function formatter(value, settings) {
+		return value.toFixed(settings.decimals);
+	}
+}(jQuery));
+
+jQuery(function ($) {
+  // custom formatting example
+  $('.count-number').data('countToOptions', {
+	formatter: function (value, options) {
+	  return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+	}
+  });
+
+  // start all the timers
+  $('.timer').each(count);
+
+  function count(options) {
+	var $this = $(this);
+	options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+	$this.countTo(options);
+  }
+});
+</script>
+
+</body>
+
+</html>
