@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(BASE_DIR, 'etc')+'/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '4na%@h)_+^c2vyf$=%ytl2ej-qycu*x-0!l*8w)z7erjoh5pz=')
+SECRET_KEY = '' #input a secret key here
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 # DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['*']
 EMAIL_HOST = 'smtpout.secureserver.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'team@beyondstatusquo.in' #email address
-EMAIL_HOST_PASSWORD = 'stonewallfinance@bsq' #password
+EMAIL_HOST_USER = '' #email address
+EMAIL_HOST_PASSWORD = '' #password
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -149,8 +149,8 @@ STATICFILES_DIRS = (
 
 #S3 BUCKETS CONFIG
 
-AWS_ACCESS_KEY_ID = "AKIA5KUBYEJ2F4WVFM2C"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = "" #removed for security 
+AWS_SECRET_ACCESS_KEY = "" #removed for security 
 AWS_STORAGE_BUCKET_NAME = 'beyond-status-quo.in'
 # AWS_S3_REGION_NAME = 'ap-south-1' #change to your region
 AWS_S3_SIGNATURE_VERSION = 's3v4'
